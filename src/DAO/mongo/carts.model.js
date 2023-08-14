@@ -1,7 +1,7 @@
-import { cartMongoose } from './mongoose/carts.mongoose.js';
-import { productMongoose } from './mongoose/products.mongoose.js';
+import { cartMongoose } from './models/carts.mongoose.js';
+import { productMongoose } from './models/products.mongoose.js';
 
-class CartModel {
+export default class CartModel {
   async getAllCarts() {
     try {
       const carts = await cartMongoose.find({}).exec();
@@ -109,4 +109,3 @@ class CartModel {
     }
   }
 }
-export const cartModel = new CartModel();

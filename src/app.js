@@ -13,18 +13,17 @@ import { initRouter } from './routes/init.router.js';
 import { loginRouter } from './routes/login.router.js';
 import { logoutRouter } from './routes/logout.router.js';
 import { productsApiRouter } from './routes/products.api.router.js';
-import { products } from './routes/products.router.js';
+import { productsRouter } from './routes/products.router.js';
 import { realTimeProducts } from './routes/realtimeproducts.router.js';
 import { registerRouter } from './routes/register.router.js';
 import { sessionsRouter } from './routes/sessions.router.js';
 import { testChatRouter } from './routes/test-chat.router.js';
-import { connectMongo } from './utils/dbConnection.js';
 import { connectSocketServer } from './utils/socketServer.js';
 
 const app = express();
 const PORT = env.port;
 
-connectMongo();
+// connectMongo();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -75,7 +74,7 @@ app.use('/api/sessions', sessionsRouter);
 app.use('/carts', cartsRouter);
 app.use('/login', loginRouter);
 app.use('/logout', logoutRouter);
-app.use('/products', products);
+app.use('/products', productsRouter);
 app.use('/realtimeproducts', realTimeProducts);
 app.use('/register', registerRouter);
 app.use('/test-chat', testChatRouter);

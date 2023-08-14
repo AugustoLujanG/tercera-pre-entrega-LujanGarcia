@@ -1,27 +1,29 @@
-import { productModel } from '../DAO/models/products.model.js';
+import { productModel } from '../DAO/factory.js';
+
+const products = new productModel();
 class ProductService {
   async getAll(queryParams) {
-    return productModel.getAll(queryParams);
+    return products.getAll(queryParams);
   }
 
   async getJson(queryParams) {
-    return productModel.getJson(queryParams);
+    return products.getJson(queryParams);
   }
 
   async getAllProducts() {
-    return productModel.getAllProducts();
+    return products.getAllProducts();
   }
 
   async getById(productId) {
-    return productModel.getById(productId);
+    return products.getById(productId);
   }
 
   async createProduct(newProd) {
-    return productModel.createProduct(newProd);
+    return products.createProduct(newProd);
   }
 
   async deleteProduct(productId) {
-    return productModel.deleteProduct(productId);
+    return products.deleteProduct(productId);
   }
 }
 

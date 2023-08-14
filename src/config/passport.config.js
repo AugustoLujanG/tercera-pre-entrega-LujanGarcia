@@ -2,9 +2,9 @@ import fetch from 'node-fetch';
 import passport from 'passport';
 import GitHubStrategy from 'passport-github2';
 import local from 'passport-local';
-import { userModel } from '../DAO/models/users.model.js';
 import { createHash, isValidPassword } from '../config.js';
 import { cartService } from '../services/cart.service.js';
+import { userService } from '../services/user.service.js';
 import env from './config.js';
 
 const LocalStrategy = local.Strategy;
@@ -14,7 +14,7 @@ export function iniPassport() {
     'login',
     new LocalStrategy({ usernameField: 'email' }, async (username, password, done) => {
       try {
-        const user = await userModel.findOne({ email: username }).exec();
+        const user = await userService.getUser(username);
         if (!user) {
           console.log('User Not Found with username (email) ' + username);
           return done(null, false);
@@ -41,7 +41,7 @@ export function iniPassport() {
       async (req, username, password, done) => {
         try {
           const { age, email, first_name, last_name, role } = req.body;
-          const user = await userModel.findOne({ email: username }).exec();
+          const user = await userService.getUser(username);
           if (user) {
             console.log('User already exists');
             return done(null, false);
@@ -64,7 +64,8 @@ export function iniPassport() {
           const products = {};
 
           try {
-            const userCreated = await userModel.create(newUser);
+            const userCreated = await userService.createUser(newUser);
+
             try {
               const cart = await cartService.createCart(products);
               userCreated.cartID = cart;
@@ -114,7 +115,7 @@ export function iniPassport() {
           }
           profile.email = emailDetail.email;
 
-          const user = await userModel.findOne({ email: profile.email }).exec();
+          const user = await userService.getUser(profile.email);
           if (!user) {
             const newUser = {
               cartID: '',
@@ -126,7 +127,7 @@ export function iniPassport() {
             const products = {};
 
             try {
-              const userCreated = await userModel.create(newUser);
+              const userCreated = await userService.createUser(newUser);
               try {
                 const cart = await cartService.createCart(products);
                 userCreated.cartID = cart;
@@ -160,7 +161,7 @@ export function iniPassport() {
   });
 
   passport.deserializeUser(async (id, done) => {
-    const user = await userModel.findById(id).exec();
+    const user = await userService.getUserById(id);
     done(null, user);
   });
 }

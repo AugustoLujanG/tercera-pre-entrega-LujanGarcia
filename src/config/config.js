@@ -15,6 +15,7 @@ export default {
   githubClientId: process.env.GITHUB_CLIENT_ID,
   githubClientSecret: process.env.GITHUB_CLIENT_SECRET,
   mongoUrl: process.env.MONGO_URL,
+  persistence: process.env.PERSISTENCE,
   port: process.env.PORT,
   userEmail: process.env.USER_EMAIL,
   userPassword: process.env.USER_PASSWORD,

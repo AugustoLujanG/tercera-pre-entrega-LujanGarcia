@@ -2,12 +2,12 @@ import express from 'express';
 import { productsController } from '../controllers/products.controller.js';
 import { checkUser } from '../middlewares/auth.js';
 
-export const products = express.Router();
+export const productsRouter = express.Router();
 
 // GET con limit
 
-products.get('/', checkUser, productsController.getAll);
+productsRouter.get('/', checkUser, productsController.getAll);
 
 // GET por ID
 
-products.get('/:pid', checkUser, productsController.getById);
+productsRouter.get('/:pid', checkUser, productsController.getById);

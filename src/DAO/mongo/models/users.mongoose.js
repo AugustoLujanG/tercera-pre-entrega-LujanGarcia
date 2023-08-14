@@ -1,7 +1,7 @@
 import { Schema, model } from 'mongoose';
 import monsoosePaginate from 'mongoose-paginate-v2';
 
-export const userModel = model(
+export const userMongoose = model(
   'users',
   new Schema({
     age: {

@@ -1,4 +1,4 @@
-async function getCurrentSession() {
+async function getCurrentCartIdSession() {
   try {
     const response = await fetch('/api/sessions/current', {
       method: 'GET',
@@ -20,7 +20,7 @@ async function getCurrentSession() {
   }
 }
 
-const cartId = await getCurrentSession();
+const cartId = await getCurrentCartIdSession();
 
 const addToCart = document.querySelectorAll('.addToCart');
 const deleteFromCart = document.querySelectorAll('.deleteFromCart');

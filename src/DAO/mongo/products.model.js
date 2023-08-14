@@ -1,6 +1,6 @@
-import { productMongoose } from './mongoose/products.mongoose.js';
+import { productMongoose } from './models/products.mongoose.js';
 
-class ProductModel {
+export default class ProductModel {
   async getAll(queryParams) {
     const { limit = 10, page = 1, sort, title, category } = queryParams;
     const filter = {};
@@ -89,5 +89,3 @@ class ProductModel {
     return await productMongoose.deleteOne({ _id: productId }).exec();
   }
 }
-
-export const productModel = new ProductModel();

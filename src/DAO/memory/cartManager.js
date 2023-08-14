@@ -1,7 +1,5 @@
 import fs from 'fs';
-import ProductManager from './productManager.js';
-
-const productManager = new ProductManager('db/products.json');
+import { productModel } from './productManager.js';
 
 export default class CartManager {
   constructor(fileName) {
@@ -31,10 +29,10 @@ export default class CartManager {
     }
   }
 
-  async createCart() {
+  async createCart(products) {
     const newCart = {
       id: this.carts.length + 1,
-      products: [],
+      products: products,
     };
 
     this.carts.push(newCart);
@@ -42,11 +40,11 @@ export default class CartManager {
     return newCart;
   }
 
-  async getCarts() {
+  async getAllCarts() {
     return this.carts;
   }
 
-  async getCartById(id) {
+  async getCart(id) {
     const cart = this.carts.find(cart => cart.id === id);
     if (cart) {
       return cart;
@@ -77,7 +75,7 @@ export default class CartManager {
   }
 
   async getProductById(id) {
-    const product = await productManager.getProductById(id);
+    const product = await productModel.getProductById(id);
     console.log(product);
     return product;
   }

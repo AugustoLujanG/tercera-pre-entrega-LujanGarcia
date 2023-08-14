@@ -2,7 +2,7 @@ import fs from 'fs';
 
 export default class ProductManager {
   constructor(fileName) {
-    this.fileName = fileName;
+    this.fileName = 'db/products.json';
     this.products = [];
     this.thumbnailsPath = '/';
     this.loadProducts();
@@ -27,7 +27,7 @@ export default class ProductManager {
     }
   }
 
-  async addProduct(product) {
+  async createProduct(product) {
     // Validar que todos los campos sean obligatorios
     if (
       !product.title ||
@@ -101,11 +101,11 @@ export default class ProductManager {
     console.log(`Producto ${newProduct.id} - ${newProduct.title} agregado`);
   }
 
-  async getProducts() {
+  async getAllProducts() {
     return this.products;
   }
 
-  async getProductById(id) {
+  async getById(id) {
     const product = this.products.find(product => product.id === id);
     if (product) {
       return product;
